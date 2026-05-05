@@ -1,6 +1,6 @@
 import styles from "./City.module.css";
 
-const formatDate = (date) =>
+const formatDate = (date: string) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",
     month: "long",
@@ -19,7 +19,8 @@ function City() {
 
   const { cityName, emoji, date, notes } = currentCity;
 
-  return (
+  return <h1>City</h1>;
+  /*return (
     <div className={styles.city}>
       <div className={styles.row}>
         <h6>City name</h6>
@@ -55,7 +56,7 @@ function City() {
         <ButtonBack />
       </div>
     </div>
-  );
+  );*/
 }
 
 export default City;

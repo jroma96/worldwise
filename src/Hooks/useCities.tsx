@@ -1,0 +1,50 @@
+import { useEffect, useState } from "react";
+
+const BASE_URL = "http://localhost:3001";
+
+interface typeCities {
+  cityName: string;
+  country: string;
+  emoji: string;
+  date: string;
+  notes: string;
+  position: {
+    lat: number;
+    lng: number;
+  };
+  id: number;
+}
+
+function useCities(): [typeCities[] | undefined, boolean] {
+  const [cities, setCities] = useState();
+  const [loading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    //const delay = (ms: number) =>
+    //new Promise((resolve) => setTimeout(resolve, ms));
+
+    const controller = new AbortController();
+    async function fetchCities() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(BASE_URL + "/cities", {
+          signal: controller.signal,
+        });
+        const data = await res.json();
+        console.log(data);
+
+        //await delay(500);
+        setCities(data);
+        setIsLoading(false);
+      } catch (e: unknown) {
+        console.log(e);
+      }
+    }
+
+    fetchCities();
+    return () => controller.abort();
+  }, [setCities, setIsLoading]);
+  return [cities, loading];
+}
+
+export default useCities;

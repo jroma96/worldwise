@@ -3,20 +3,23 @@
 import { useState } from "react";
 
 import styles from "./Form.module.css";
+import { useNavigate } from "react-router-dom";
+import Button from "./Button";
 
-export function convertToEmoji(countryCode) {
+/*function convertToEmoji(countryCode: string) {
   const codePoints = countryCode
     .toUpperCase()
     .split("")
-    .map((char) => 127397 + char.charCodeAt());
+    .map((char) => 127397 + char.charCodeAt(0));
   return String.fromCodePoint(...codePoints);
-}
+}*/
 
 function Form() {
   const [cityName, setCityName] = useState("");
-  const [country, setCountry] = useState("");
+  //const [country, setCountry] = useState("");
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
+  const navigate = useNavigate();
 
   return (
     <form className={styles.form}>
@@ -34,8 +37,10 @@ function Form() {
         <label htmlFor="date">When did you go to {cityName}?</label>
         <input
           id="date"
-          onChange={(e) => setDate(e.target.value)}
-          value={date}
+          onChange={(e) => {
+            setDate(new Date(e.target.value));
+          }}
+          value={date.toDateString()}
         />
       </div>
 
@@ -49,8 +54,16 @@ function Form() {
       </div>
 
       <div className={styles.buttons}>
-        <button>Add</button>
-        <button>&larr; Back</button>
+        <Button type="primary">Add</Button>
+        <Button
+          type="back"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(-1);
+          }}
+        >
+          &larr; Back
+        </Button>
       </div>
     </form>
   );
