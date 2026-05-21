@@ -1,27 +1,10 @@
 import CityItem from "./CityItem";
 import styles from "./CityList.module.css";
 import Spinner from "./Spinner";
+import useCitiesContext from "../contexts/useCitiesContext";
 
-interface typeCities {
-  cityName: string;
-  country: string;
-  emoji: string;
-  date: string;
-  notes: string;
-  position: {
-    lat: number;
-    lng: number;
-  };
-  id: number;
-}
-
-function CityList({
-  cities,
-  isLoading,
-}: {
-  cities: typeCities[] | undefined;
-  isLoading: boolean;
-}) {
+function CityList() {
+  const { cities, isLoading } = useCitiesContext();
   return isLoading ? (
     <Spinner />
   ) : (

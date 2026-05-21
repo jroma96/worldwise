@@ -15,7 +15,11 @@ interface typeCities {
   id: number;
 }
 
-function useCities(): [typeCities[] | undefined, boolean] {
+function useCities(): [
+  typeCities[] | undefined,
+  boolean,
+  React.Dispatch<React.SetStateAction<boolean>>,
+] {
   const [cities, setCities] = useState();
   const [loading, setIsLoading] = useState(true);
 
@@ -44,7 +48,7 @@ function useCities(): [typeCities[] | undefined, boolean] {
     fetchCities();
     return () => controller.abort();
   }, [setCities, setIsLoading]);
-  return [cities, loading];
+  return [cities, loading, setIsLoading];
 }
 
 export default useCities;

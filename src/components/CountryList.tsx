@@ -1,6 +1,7 @@
 import CountryItem from "./CountryItem";
 import styles from "./CountryList.module.css";
 import Spinner from "./Spinner";
+import useCitiesContext from "../contexts/useCitiesContext";
 
 interface typeCountry {
   country: string;
@@ -8,26 +9,8 @@ interface typeCountry {
   id: number;
 }
 
-interface typeCities {
-  cityName: string;
-  country: string;
-  emoji: string;
-  date: string;
-  notes: string;
-  position: {
-    lat: number;
-    lng: number;
-  };
-  id: number;
-}
-
-function CountryList({
-  cities,
-  isLoading,
-}: {
-  cities: typeCities[] | undefined;
-  isLoading: boolean;
-}) {
+function CountryList() {
+  const { cities, isLoading } = useCitiesContext();
   const init: typeCountry[] = [];
   const countries: typeCountry[] | undefined = cities?.reduce(
     (arr: typeCountry[], cur) => {
