@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "/api/cities";
 
 interface typeCities {
   cityName: string;
