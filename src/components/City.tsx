@@ -25,13 +25,15 @@ function City() {
   const { id } = useParams();
   const { currentCity, getCity } = useCitiesContext();
   useEffect(() => {
+    const controller = new AbortController();
     async function callGetCity() {
       if (typeof id === "string") {
-        await getCity(id);
+        await getCity(id, controller);
         setIsLoading(false);
       }
     }
     callGetCity();
+    return () => controller.abort();
   }, [id, getCity]);
   const { cityName, emoji, date, notes } = currentCity;
 

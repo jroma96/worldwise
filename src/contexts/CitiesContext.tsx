@@ -19,7 +19,7 @@ interface typeCities {
 interface typeCityContext {
   cities: typeCities[] | undefined;
   isLoading: boolean;
-  getCity: (id: string) => Promise<void>;
+  getCity: (id: string, controller: AbortController) => Promise<void>;
   currentCity: typeCities;
 }
 
@@ -39,7 +39,8 @@ const initObj = {
 const CitiesContext = createContext<typeCityContext>({
   cities: [],
   isLoading: false,
-  getCity: async (id: string) => {
+  getCity: async (id: string, controller: AbortController) => {
+    controller.abort();
     console.log(id);
   },
   currentCity: initObj,
@@ -49,11 +50,13 @@ function CitiesProvider({ children }: { children: React.ReactNode }) {
   const [cities, isLoading, setIsLoading] = useCities();
   const [currentCity, setCurrentCity] = useState<typeCities>(initObj);
 
-  async function getCity(id: string) {
+  async function getCity(id: string, controller: AbortController) {
     try {
       setIsLoading(true);
       setCurrentCity(initObj);
-      const res = await fetch(BASE_URL + "/cities/" + id);
+      const res = await fetch(BASE_URL + "/cities/" + id, {
+        signal: controller.signal,
+      });
       const data = await res.json();
       setCurrentCity(data);
       setIsLoading(false);

@@ -18,7 +18,7 @@ function useCitiesContext(): {
   cities: typeCities[] | undefined;
   isLoading: boolean;
   currentCity: typeCities;
-  getCity: (id: string) => Promise<void>;
+  getCity: (id: string, controller: AbortController) => Promise<void>;
 } {
   const { cities, isLoading, currentCity, getCity } = useContext(CitiesContext);
   return { cities, isLoading, currentCity, getCity };
