@@ -76,4 +76,4 @@ function CitiesProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export { CitiesProvider };
+export { CitiesProvider, CitiesContext };
