@@ -42,6 +42,8 @@ function useCities(): [
         setIsLoading(false);
       } catch (e: unknown) {
         console.log(e);
+      } finally {
+        setIsLoading(false);
       }
     }
 
