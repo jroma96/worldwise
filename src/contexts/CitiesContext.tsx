@@ -1,7 +1,7 @@
 import useCities from "../Hooks/useCities";
 import React, { createContext, useState } from "react";
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "/api";
 
 interface typeCities {
   cityName: string;

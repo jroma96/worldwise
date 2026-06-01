@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const BASE_URL = "/api/cities";
+const BASE_URL = "/api";
 
 interface typeCities {
   cityName: string;
